@@ -1,12 +1,12 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-const Tabtwo = () => {
+const weekly = () => {
   return (
     <View>
-      <Text>Tabtwo</Text>
+      <Text>weekly</Text>
     </View>
   )
 }
 
-export default Tabtwo
+export default weekly

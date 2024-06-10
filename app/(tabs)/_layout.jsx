@@ -1,5 +1,5 @@
 import { View, Text, Image } from 'react-native';
-import { Tabs } from 'expo-router';
+import { Tabs, Redirect } from 'expo-router';
 import { icons } from '../../constants';
 
 const TabIcon = ({ icon, color, name, focused }) => {
@@ -10,7 +10,7 @@ const TabIcon = ({ icon, color, name, focused }) => {
                 resizeMode="contain"
                 tintColor={color}
                 className="w-6 h-6"
-            />
+            /> 
             <Text className={`mt-2 ${focused ? 'font-bold' : 'font-normal'}`} style={{ color: color }}>
                 {name}
             </Text>
@@ -44,7 +44,7 @@ const TabsLayout = () => {
                             <TabIcon
                                 icon={icons.home}
                                 color={color}
-                                name="Home"
+                                name=" "
                                 focused={focused}
                             />
                         ),
@@ -52,15 +52,15 @@ const TabsLayout = () => {
                 />
 
                 <Tabs.Screen
-                    name="tabtwo"
+                    name="Nutrition"
                     options={{
-                        title: 'Tabtwo',
+                        title: 'Nutrition',
                         headerShown: false,
                         tabBarIcon: ({ color, focused }) => (
                             <TabIcon
-                                icon={icons.bookmark}
+                                icon={icons.nutrition}
                                 color={color}
-                                name="Tabtwo"
+                                name=" "
                                 focused={focused}
                             />
                         ),
@@ -68,15 +68,15 @@ const TabsLayout = () => {
                 />
 
                 <Tabs.Screen
-                    name="tabthree"
+                    name="ReciepeSuggestion"
                     options={{
-                        title: 'TabThree',
+                        title: 'ReciepeSuggestion',
                         headerShown: false,
                         tabBarIcon: ({ color, focused }) => (
                             <TabIcon
-                                icon={icons.plus}
+                                icon={icons.reciepe}
                                 color={color}
-                                name="TabThree"
+                                name=" "
                                 focused={focused}
                             />
                         ),
@@ -84,20 +84,52 @@ const TabsLayout = () => {
                 />
 
                 <Tabs.Screen
-                    name="profile"
+                    name="urReciepe"
                     options={{
-                        title: 'Profile',
+                        title: 'urReciepe',
                         headerShown: false,
                         tabBarIcon: ({ color, focused }) => (
                             <TabIcon
-                                icon={icons.home}
+                                icon={icons.suggestion}
                                 color={color}
-                                name="Profile"
+                                name=" "
                                 focused={focused}
                             />
                         ),
                     }}
                 />
+
+                <Tabs.Screen
+                    name="Monthly"
+                    options={{
+                        title: 'Monthly input',
+                        headerShown: false,
+                        tabBarIcon: ({ color, focused }) => (
+                            <TabIcon
+                                icon={icons.monthly}
+                                color={color}
+                                name=" "
+                                focused={focused}
+                            />
+                        ),
+                    }}
+                />
+
+                <Tabs.Screen
+                    name="weekly"
+                    options={{
+                        title: 'weekly input',
+                        headerShown: false,
+                        tabBarIcon: ({ color, focused }) => (
+                            <TabIcon
+                                icon={icons.weeklyhighres}
+                                color={color}
+                                name=" "
+                                focused={focused}
+                            />
+                        ),
+                    }}
+                />      
             </Tabs>
         </>
     );

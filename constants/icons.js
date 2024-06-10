@@ -12,6 +12,12 @@ import eyeHide from "../assets/icons/eye-hide.png";
 import eye from "../assets/icons/eye.png";
 import play from "../assets/icons/play.png";
 
+import monthly from "../assets/icons/monthly.png"
+import nutrition from "../assets/icons/nutrition.png"
+import weeklyhighres from "../assets/icons/weeklyhighres.png"
+import reciepe from "../assets/icons/reciepe.png"
+import suggestion from "../assets/icons/suggestion.png"
+
 export default {
   play,
   bookmark,
@@ -26,4 +32,9 @@ export default {
   logout,
   eyeHide,
   eye,
+  monthly,
+  weeklyhighres,
+  nutrition,
+  reciepe,
+  suggestion,
 };

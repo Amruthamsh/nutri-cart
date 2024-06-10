@@ -1,12 +1,12 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-const Tabthree = () => {
+const urReciepe = () => {
   return (
     <View>
-      <Text>tabthree</Text>
+      <Text>urReciepe</Text>
     </View>
   )
 }
 
-export default Tabthree
+export default urReciepe
