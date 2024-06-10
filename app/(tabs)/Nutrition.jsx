@@ -75,7 +75,7 @@ export default function ImagePickerExample() {
 
   return (
     <View style={styles.container}>
-      <Text>Give two images </Text>
+      <Text>Give two images 2</Text>
       <View style={styles.buttons}>
         <Button title="Use Camera to click a pic" onPress={camImage} />
         <Button title="Pick an image from camera roll" onPress={pickImage} />
