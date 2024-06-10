@@ -7,29 +7,33 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 const genAI = new GoogleGenerativeAI(process.env.EXPO_PUBLIC_GEMINI_API_KEY);
 export default function ImagePickerExample() {
   
-  const [image, setImage] = useState(null);
+  const [imageURI, setImage] = useState(null);
 
   const generateResult = async () =>{
-    // The Gemini 1.5 models are versatile and work with both text-only and multimodal prompts
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
-
-    const base64ImageData = await FileSystem.readAsStringAsync(image, {
-      encoding: FileSystem.EncodingType.Base64,
-    });
-
-    const image = {
-      inlineData: {
-        data: base64ImageData,
-        mimeType: "image/png",
-      },
-    };
-
-    const prompt = "Give nutrition of the food in the image";
-
-    const result = await model.generateContent([prompt, image]);
-    const response = await result.response;
-    const text = response.text();
-    console.log(text);
+      try{
+        // The Gemini 1.5 models are versatile and work with both text-only and multimodal prompts
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
+  
+        const base64ImageData = await FileSystem.readAsStringAsync(imageURI, {
+          encoding: FileSystem.EncodingType.Base64,
+        });
+  
+        const image = {
+          inlineData: {
+            data: base64ImageData,
+            mimeType: "image/png",
+          },
+        };
+  
+        const prompt = "Give nutrition of the food in the image";
+  
+        const result = await model.generateContent([prompt, image]);
+        const response = await result.response;
+        const text = response.text();
+        console.log(text);
+      }catch(error){
+        console.log(error);
+      }
   }
 
   const pickImage = async () => {
@@ -45,7 +49,7 @@ export default function ImagePickerExample() {
 
     if (!result.canceled) {
       setImage(result.assets[0].uri);
-      generateResult();
+      generateResult(result.assets[0].uri);
     }
   };
 
@@ -80,7 +84,8 @@ export default function ImagePickerExample() {
         <Button title="Use Camera to click a pic" onPress={camImage} />
         <Button title="Pick an image from camera roll" onPress={pickImage} />
       </View>
-      {image && <Image source={{ uri: image }} style={styles.image} />}
+      {imageURI && <Image source={{ uri: imageURI }} style={styles.image} />}
+      {imageURI && <Button title="Generate Data" onPress={generateResult}/>}
     </View>
   );
 }
