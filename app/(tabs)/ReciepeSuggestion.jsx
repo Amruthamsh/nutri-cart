@@ -28,7 +28,7 @@ export default function RecepieSuggestions() {
       // The Gemini 1.5 models are versatile and work with both text-only and multimodal prompts
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-      const prompt = `Here are the ingredients: ${text}. Generate a reciepe for a nutritious dish using these ingredients,dont use heading styles of bold in data formating, dont even bold the sub heading give plain text`;
+      const prompt = `Here are the ingredients: ${text}. Generate a reciepe for a nutritious dish using these ingredients,dont use heading styles of bold in data formating, dont even bold the heading or sub heading give plain text`;
 
       console.log(prompt);
       const result = await model.generateContent([prompt]);
