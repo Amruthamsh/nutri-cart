@@ -30,7 +30,7 @@ const TabsLayout = () => {
           headerShown: false,
           tabBarShowLabel: false,
           tabBarActiveTintColor: "#00FF00",
-          tabBarInactiveTintColor: "#CDCDE0",
+          tabBarInactiveTintColor: "white",
           tabBarStyle: {
             backgroundColor: "#000000",
             borderTopWidth: 1,
@@ -45,7 +45,7 @@ const TabsLayout = () => {
           options={{
             title: "Home",
             headerShown: true,
-            headerTintColor: "green",
+            headerTintColor: "#00FF00",
             headerStyle: { backgroundColor: "black" },
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
@@ -63,6 +63,8 @@ const TabsLayout = () => {
           options={{
             title: "Nutrition",
             headerShown: true,
+            headerTintColor: "#00FF00",
+            headerStyle: { backgroundColor: "black" },
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
                 icon={icons.nutrition}
@@ -77,8 +79,10 @@ const TabsLayout = () => {
         <Tabs.Screen
           name="ReciepeSuggestion"
           options={{
-            title: "Reciepe Suggestion",
+            title: "Reciepe Suggestions",
             headerShown: true,
+            headerTintColor: "#00FF00",
+            headerStyle: { backgroundColor: "black" },
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
                 icon={icons.reciepe}
@@ -95,6 +99,8 @@ const TabsLayout = () => {
           options={{
             title: "Your Reciepe",
             headerShown: true,
+            headerTintColor: "#00FF00",
+            headerStyle: { backgroundColor: "black" },
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
                 icon={icons.suggestion}
@@ -111,6 +117,8 @@ const TabsLayout = () => {
           options={{
             title: "Monthly input",
             headerShown: true,
+            headerTintColor: "#00FF00",
+            headerStyle: { backgroundColor: "black" },
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
                 icon={icons.monthly}
@@ -125,8 +133,10 @@ const TabsLayout = () => {
         <Tabs.Screen
           name="weekly"
           options={{
-            title: "weekly input",
+            title: "Weekly Input",
             headerShown: true,
+            headerTintColor: "#00FF00",
+            headerStyle: { backgroundColor: "black" },
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
                 icon={icons.weeklyhighres}

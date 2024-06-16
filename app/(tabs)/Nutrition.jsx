@@ -88,7 +88,7 @@ export default function ImagePickerExample() {
     <View style={styles.container}>
       <View style={styles.buttons}>
         <Button
-          title="Use Camera to click a pic"
+          title="Use Camera to click a Food pic"
           onPress={camImage}
           style={styles.button}
           color="#34C759"
