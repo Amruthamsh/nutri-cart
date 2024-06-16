@@ -1,23 +1,19 @@
 import { useState } from "react";
 import {
-  Button,
-  Image,
-  View,
   StyleSheet,
   Text,
   ScrollView,
   TextInput,
   Pressable,
 } from "react-native";
-import * as ImagePicker from "expo-image-picker";
-import * as FileSystem from "expo-file-system";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { Picker } from "@react-native-picker/picker";
 
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const genAI = new GoogleGenerativeAI(process.env.EXPO_PUBLIC_GEMINI_API_KEY);
 
 export default function RecepieSuggestions() {
   const [text, setText] = useState("");
+  const [selectedDiet, setSelectedDiet] = useState();
   const [editNutrition, setEditable] = useState(true);
   const [reciepe, setReciepe] = useState(null);
 
@@ -28,7 +24,7 @@ export default function RecepieSuggestions() {
       // The Gemini 1.5 models are versatile and work with both text-only and multimodal prompts
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-      const prompt = `Here are the ingredients: ${text}. Generate a reciepe for a nutritious dish using these ingredients,dont use heading styles of bold in data formating, dont even bold the heading or sub heading give plain text, give name of the food also and end it with an enter at the end of the text`;
+      const prompt = `Here are the ingredients: ${text}. Generate a ${selectedDiet} reciepe for a nutritious dish using these ingredients, dont use heading styles of bold in data formating, dont even bold the heading or sub heading give plain text, give name of the food also and end it with an enter at the end of the text`;
 
       console.log(prompt);
       const result = await model.generateContent([prompt]);
@@ -53,6 +49,15 @@ export default function RecepieSuggestions() {
         onChangeText={setText}
         editable={editNutrition}
       />
+      <Picker
+        selectedValue={selectedDiet}
+        onValueChange={(itemValue, itemIndex) => setSelectedDiet(itemValue)}
+        style={styles.picker}
+      >
+        <Picker.Item label="Veg/Non Veg" value="Vegetarian or non vegetarian" />
+        <Picker.Item label="Veg" value="vegetarian" />
+        <Picker.Item label="Non Veg" value="non vegetarian" />
+      </Picker>
       {text && (
         <Pressable
           style={({ pressed }) => [
@@ -77,6 +82,12 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 18,
     backgroundColor: "#000",
+  },
+  picker: {
+    width: "60%", // Adjust button width as needed
+    color: "white",
+    marginVertical: 10,
+    backgroundColor: "#34C759",
   },
   input: {
     backgroundColor: "white",
