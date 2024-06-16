@@ -23,10 +23,8 @@ export default function App() {
             </Text>
           </View>
           <Text className="text-sm font-pregular text-gray-100 mt-7 text-center">
-            Welcome to NutriCart, your ultimate destination for all things
-            healthy and nutritious! At NutriCart, we believe that a
-            well-balanced diet is the foundation of a vibrant and fulfilling
-            life.
+            Get tailored nutrition and recipe suggestions based on your
+            preferences and dietary needs.
           </Text>
           <CustomButton
             title="Continue with Email"

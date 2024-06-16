@@ -6,125 +6,97 @@ import {
   StyleSheet,
   Text,
   ScrollView,
+  TextInput,
+  Pressable,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const genAI = new GoogleGenerativeAI(process.env.EXPO_PUBLIC_GEMINI_API_KEY);
 
 export default function RecepieSuggestions() {
-  const [imageURI, setImage] = useState(null);
-  const [nutritionData, setNutrtionData] = useState(null);
+  const [text, setText] = useState("");
+  const [editNutrition, setEditable] = useState(true);
+  const [reciepe, setReciepe] = useState(null);
 
   const generateResult = async () => {
     try {
+      setEditable(true);
+
       // The Gemini 1.5 models are versatile and work with both text-only and multimodal prompts
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-      const base64ImageData = await FileSystem.readAsStringAsync(imageURI, {
-        encoding: FileSystem.EncodingType.Base64,
-      });
+      const prompt = `Here are the ingredients: ${text}. Generate a reciepe for a nutritious dish using these ingredients`;
 
-      const image = {
-        inlineData: {
-          data: base64ImageData,
-          mimeType: "image/png",
-        },
-      };
-
-      const prompt = "Give nutrition of the food in the image";
-
-      const result = await model.generateContent([prompt, image]);
+      console.log(prompt);
+      const result = await model.generateContent([prompt]);
       const response = await result.response;
-      const text = response.text();
-      setNutrtionData(text);
-      console.log(text);
+      const generatedText = response.text();
+      setReciepe(generatedText);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-
-    console.log(result);
-
-    if (!result.canceled) {
-      setImage(result.assets[0].uri);
-      generateResult(result.assets[0].uri);
-    }
-  };
-
-  const camImage = async () => {
-    try {
-      const permissionResult =
-        await ImagePicker.requestCameraPermissionsAsync();
-
-      if (permissionResult.granted === false) {
-        alert("You've refused to allow this appp to access your camera!");
-        return;
-      }
-      let result = await ImagePicker.launchCameraAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: true,
-        quality: 0.6,
-        cameraType: "back",
-      });
-
-      if (!result.canceled) {
-        setImage(result.assets[0].uri);
-      }
-    } catch (error) {
-      console.error("Error picking image: ", error);
-    }
-  };
   return (
-    <View style={styles.container}>
-      <View style={styles.buttons}>
-        <Button
-          title="Use Camera to click a Food pic"
-          onPress={camImage}
-          style={styles.button}
-          color="#34C759"
-        />
-        <Button
-          title="Pick an image from camera roll"
-          onPress={pickImage}
-          style={styles.button}
-          color="#34C759"
-        />
-      </View>
-      {imageURI && <Image source={{ uri: imageURI }} style={styles.image} />}
-      {imageURI && <Button title="Generate Data" onPress={generateResult} />}
-      <ScrollView>
-        {nutritionData && (
-          <Text style={styles.generatedText}>{nutritionData}</Text>
-        )}
-      </ScrollView>
-    </View>
+    <ScrollView style={styles.container}>
+      <Text style={styles.generatedText}>Write down your ingredients!</Text>
+      <TextInput
+        style={styles.input}
+        multiline
+        numberOfLines={4}
+        maxLength={100}
+        placeholder={"Your ingredients!"}
+        value={text}
+        onChangeText={setText}
+        editable={editNutrition}
+      />
+      {text && (
+        <Pressable
+          style={({ pressed }) => [
+            {
+              backgroundColor: pressed ? "#238636" : "#34C759",
+            },
+            styles.pressableButton,
+          ]}
+          onPress={generateResult}
+        >
+          <Text style={styles.generatedText}>Generate a Reciepe!</Text>
+        </Pressable>
+      )}
+
+      {reciepe && <Text style={styles.generatedText}>{reciepe}</Text>}
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    padding: 12,
+    padding: 18,
     backgroundColor: "#000",
   },
-  buttons: {
-    marginTop: 10,
-    gap: 10,
-    flexDirection: "column", // Add this to make the buttons inline
+  input: {
+    backgroundColor: "white",
+    width: "90%",
+    padding: 12,
+    marginVertical: 5,
+    borderRadius: 6,
   },
-  button: {},
+  button: {
+    backgroundColor: "green",
+    height: 30,
+  },
+  pressableButton: {
+    width: "50%", // Adjust button width as needed
+    marginBottom: 10,
+    paddingVertical: 8, // Adjust vertical padding
+    borderRadius: 8,
+    padding: 12,
+    marginVertical: 3,
+  },
   image: {
     marginVertical: 10,
     width: 240,
