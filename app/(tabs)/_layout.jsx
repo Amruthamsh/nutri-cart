@@ -44,7 +44,7 @@ const TabsLayout = () => {
           name="home"
           options={{
             title: "Home",
-            headerShown: true,
+            headerShown: false,
             headerTintColor: "#00FF00",
             headerStyle: { backgroundColor: "black" },
             tabBarIcon: ({ color, focused }) => (
@@ -68,6 +68,24 @@ const TabsLayout = () => {
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
                 icon={icons.nutrition}
+                color={color}
+                name=" "
+                focused={focused}
+              />
+            ),
+          }}
+        />
+
+        <Tabs.Screen
+          name="Packed"
+          options={{
+            title: "Packed foods",
+            headerShown: true,
+            headerTintColor: "#00FF00",
+            headerStyle: { backgroundColor: "black" },
+            tabBarIcon: ({ color, focused }) => (
+              <TabIcon
+                icon={icons.weeklyhighres}
                 color={color}
                 name=" "
                 focused={focused}
@@ -111,27 +129,6 @@ const TabsLayout = () => {
             ),
           }}
         />
-
-        <Tabs.Screen
-          name="Packed"
-          options={{
-            title: "Packed foods",
-            headerShown: true,
-            headerTintColor: "#00FF00",
-            headerStyle: { backgroundColor: "black" },
-            tabBarIcon: ({ color, focused }) => (
-              <TabIcon
-                icon={icons.weeklyhighres}
-                color={color}
-                name=" "
-                focused={focused}
-              />
-            ),
-          }}
-        />
-
-
-
       </Tabs>
     </>
   );

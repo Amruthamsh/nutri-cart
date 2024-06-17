@@ -49,7 +49,7 @@ export default urReciepe = () => {
         editable
       />
 
-      <Text style={styles.generatedText}>Write down your ingredients!</Text>
+      <Text style={styles.generatedText}>Write down your recipie!</Text>
       <TextInput
         style={styles.input}
         multiline
