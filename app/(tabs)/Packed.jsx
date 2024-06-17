@@ -46,7 +46,7 @@ export default function Packed() {
         },
       ];
 
-      const prompt = `Give nutrition of the food in the first image (front) considering information from the second image (back).`; // Adjust prompt as needed
+      const prompt = `Please review the attached images of a food product for detailed analysis. The (front) displays the front packaging, while the (back) features the back where nutritional information is located. From these images, extract and provide the specific name of the item as presented on the front packaging. Additionally, summarize key nutritional details such as calories, fats, carbohydrates, proteins, vitamins, and minerals per serving, obtained from the back image. Finally, assess the safety of consuming the product, rating its safety level on a scale of 1 to 3, where 1 indicates the product is not safe to consume, 2 signifies caution is advised, and 3 suggests the product is generally safe for consumption.`; // Adjust prompt as needed
 
       const result = await model.generateContent([prompt, ...images]);
 
@@ -101,6 +101,9 @@ export default function Packed() {
   return (
     <View style={styles.container}>
       <ScrollView>
+       <Text style={styles.instruction}>
+          Please provide images of the front and back packaging of the food product.
+        </Text>
         <View style={styles.buttons}>
           <Button
             title="Use Camera to click a Food pic"
@@ -114,6 +117,7 @@ export default function Packed() {
             style={styles.button}
             color="#34C759"
           />
+          
         </View>
         {imageURI && <Image source={{ uri: imageURI }} style={styles.image} />}
         {imageURI2 && (
@@ -151,5 +155,11 @@ const styles = StyleSheet.create({
   },
   generatedText: {
     color: "white",
+    paddingVertical: 10
   },
+  instruction:{
+    color:"white",
+    textAlign: "center",
+    paddingVertical: 20
+  }
 });
