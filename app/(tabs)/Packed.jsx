@@ -44,9 +44,9 @@ export default function Packed() {
             mimeType: "image/png",
           },
         },
-      ];
+      ]; 
 
-      const prompt = `Please review the attached images of a food product for detailed analysis. The (front) displays the front packaging, while the (back) features the back where nutritional information is located. From these images, extract and provide the specific name of the item as presented on the front packaging. Additionally, summarize key nutritional details such as calories, fats, carbohydrates, proteins, vitamins, and minerals per serving, obtained from the back image. Finally, assess the safety of consuming the product, rating its safety level on a scale of 1 to 3, where 1 indicates the product is not safe to consume, 2 signifies caution is advised, and 3 suggests the product is generally safe for consumption.`; // Adjust prompt as needed
+      const prompt = ` Please review the attached images of a food product for detailed analysis. The (front) displays the front packaging, while the (back) features the back where nutritional information is located. From these images, extract and provide the specific name of the item as presented on the front packaging. Additionally, summarize key nutritional details such as calories, fats, carbohydrates, proteins, vitamins, and minerals per serving, obtained from the back image. Finally, assess the safety of consuming the product, rating its safety level on a scale of 1 to 10 and dont include formatting for headings and subheadings like bold or italics etc`; // Adjust prompt as needed
 
       const result = await model.generateContent([prompt, ...images]);
 
