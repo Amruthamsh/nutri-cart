@@ -113,27 +113,9 @@ const TabsLayout = () => {
         />
 
         <Tabs.Screen
-          name="Monthly"
+          name="Packed"
           options={{
-            title: "Monthly input",
-            headerShown: true,
-            headerTintColor: "#00FF00",
-            headerStyle: { backgroundColor: "black" },
-            tabBarIcon: ({ color, focused }) => (
-              <TabIcon
-                icon={icons.monthly}
-                color={color}
-                name=" "
-                focused={focused}
-              />
-            ),
-          }}
-        />
-
-        <Tabs.Screen
-          name="weekly"
-          options={{
-            title: "Weekly Input",
+            title: "Packed foods",
             headerShown: true,
             headerTintColor: "#00FF00",
             headerStyle: { backgroundColor: "black" },
@@ -147,6 +129,9 @@ const TabsLayout = () => {
             ),
           }}
         />
+
+
+
       </Tabs>
     </>
   );
